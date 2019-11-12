@@ -188,15 +188,16 @@ int do_fade(artnet_node node, opts_t *ops) {
   memset(dmx, 0x00, chan);
 
   chan--;
+  dmx[chan] = val;
 
-  artnet_send_dmx(node, 0, chan, dmx);
+  artnet_send_dmx(node, 0, chan+1, dmx);
   msleep(40);
 
   const unsigned long tstart=timeGetTime();
   const unsigned long tend=tstart+(int)(fadetime*1000.0);
   unsigned long t=tstart;
 
-  while (t<=tend) {
+  while (t<tend) {
     t=timeGetTime();
 
     if (fadetime)
@@ -213,7 +214,7 @@ int do_fade(artnet_node node, opts_t *ops) {
     // otherwise each execution of artnet_setdmx starts the sequence from 0
     // which confuses some devices
     if (artnet_raw_send_dmx(node, ops->port_addr , chan+1, dmx)) {
-      printf("failed to send: %s\n", artnet_strerror() );
+      printf("failed to send: %s\n", artnet_strerror());
     }
 
     t=timeGetTime(); // get current time, because the last time is too old (due to the sleep)
@@ -247,7 +248,7 @@ int main(int argc, char *argv[]) {
     display_help_and_exit(&ops, argv);
 
   // create new artnet node, and set config values
-  node = artnet_new(ops.ip_addr, ops.verbose);;
+  node = artnet_new(ops.ip_addr, ops.verbose);
 
   artnet_set_short_name(node, SHORT_NAME);
   artnet_set_long_name(node, LONG_NAME);
