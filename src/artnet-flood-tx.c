@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
     node = artnet_new(ip_addr, verbose) ; ;
 
   artnet_set_short_name(node, "Artnet -> DMX ") ;
-  artnet_set_long_name(node, "ArtNet Flood RX") ;
+  artnet_set_long_name(node, "ArtNet Flood TX") ;
   artnet_set_node_type(node, ARTNET_NODE) ;
 
   // set the first port to input dmx data
