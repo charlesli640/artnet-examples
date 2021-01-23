@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 			case 's':
 				subnet_addr = atoi(optarg) ;
 
-				if(subnet_addr < 0 && subnet_addr > 15) {
+				if(subnet_addr < 0 || subnet_addr > 15) {
 					printf("Subnet address must be between 0 and 15\n") ;
 					exit(1) ;
 				}
@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 			case 'p':
 				port_addr = atoi(optarg) ;
 
-				if(port_addr < 0 && port_addr > 15) {
+				if(port_addr < 0 || port_addr > 15) {
 					printf("Port address must be between 0 and 15\n") ;
 					exit(1) ;
 				}
